@@ -12,6 +12,11 @@ export default function App() {
   const [shoppingList, setShoppingList] = useState<ShoppingListItemType[]>([]);
   const [value, setValue] = useState<string>();
 
+  const testdata = Array.from({ length: 300 }, (_, i) => ({
+    id: i.toString(),
+    name: `Item ${i + 1}`,
+  }));
+
   const handleSubmit = () => {
     if (value) {
       const newShoppingList = [
@@ -40,11 +45,14 @@ export default function App() {
           <Text>Your shopping list is empty</Text>
         </View>
       }
-      data={shoppingList}
+      data={testdata}
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
       stickyHeaderIndices={[0]}
-      renderItem={({ item }) => <ShoppingListItem name={item.name} />}
+      renderItem={({ item }) => {
+        console.log(item.id);
+        return <ShoppingListItem name={item.name} />;
+      }}
     ></FlatList>
   );
 }
